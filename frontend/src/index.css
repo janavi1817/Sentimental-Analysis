@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --aura-blue: #E0E7FF;
+    --aura-darkBlue: #1E3A8A;
+    --aura-lavender: #F5F3FF;
+}
+
+@layer components {
+    .glass-card {
+        @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-2xl rounded-[40px];
+    }
+}
+
+body {
+    @apply bg-aura-lavender text-slate-900;
+    margin: 0;
+    font-family: 'Outfit', 'Inter', sans-serif;
+}
