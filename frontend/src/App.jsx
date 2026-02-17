@@ -44,7 +44,7 @@ ChartJS.register(
     Legend
 );
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = import.meta.env.PROD ? "" : "http://localhost:8000";
 
 const initialForm = {
     reflection_date: new Date().toISOString().split('T')[0],

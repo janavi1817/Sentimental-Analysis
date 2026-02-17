@@ -1,4 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException, File, UploadFile
+from fastapi import FastAPI, Depends, HTTPException, File, UploadFile, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from typing import List, Optional
 import os
@@ -30,7 +32,7 @@ model = genai.GenerativeModel('models/gemini-2.0-flash')
 
 app = FastAPI(title="Aura API")
 
-@app.get("/")
+@app.get("/api/health")
 def read_root():
     return {"status": "Aura API is running", "endpoints": ["/journal/entries", "/mood/stats", "/docs"]}
 
@@ -43,6 +45,19 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve React App
+# Mount the static directory
+app.mount("/assets", StaticFiles(directory="../frontend/dist/assets"), name="assets")
+
+# Catch-all route to serve index.html for client-side routing
+@app.get("/{full_path:path}", response_class=HTMLResponse)
+async def serve_react_app(full_path: str):
+    if full_path.startswith("api/") or full_path.startswith("docs") or full_path.startswith("openapi.json"):
+        raise HTTPException(status_code=404, detail="Not Found")
+    
+    with open("../frontend/dist/index.html", "r") as f:
+        return f.read()
 
 # Dependency
 def get_db():
