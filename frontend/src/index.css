@@ -12,6 +12,30 @@
     .glass-card {
         @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-2xl rounded-[40px];
     }
+
+
+    .journal-paper {
+        background-image:
+            linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        background-size: 100% 2rem, 2rem 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .journal-paper::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 3rem;
+        bottom: 0;
+        width: 2px;
+        background-color: rgba(239, 68, 68, 0.2);
+    }
+
+    .paper-texture {
+        background-image: url("https://www.transparenttextures.com/patterns/paper.png");
+    }
 }
 
 body {

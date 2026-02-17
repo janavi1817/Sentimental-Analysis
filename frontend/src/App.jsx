@@ -125,16 +125,150 @@ const VoiceInput = ({ onTranscript, placeholder = "Speak your thoughts..." }) =>
 };
 
 const TEMPLATES = [
-    { name: "The Daily Pulse", desc: "A quick check-in for your mood, triggers, and highlights of the day.", icon: <Activity />, theme: "blue" },
-    { name: "Anxiety Anchor", desc: "Designed to help you identify stressors and use grounding techniques to find calm.", icon: <Wind />, theme: "teal" },
-    { name: "Gratitude Horizon", desc: "Focus on the positive by listing three things you are thankful for today.", icon: <Heart />, theme: "gold" },
-    { name: "The Academic Edge", desc: "Manage study pressure, track focus levels, and celebrate learning wins.", icon: <MessageSquare />, theme: "indigo" },
-    { name: "Nightfall Peace", desc: "Soft reflections to clear your mind and prepare for a restful, deep sleep.", icon: <Activity />, theme: "slate" },
-    { name: "Inner Compass", desc: "Deep dive into your personal values, growth, and what truly matters to you.", icon: <LineChart />, theme: "sage" },
-    { name: "Morning Spark", desc: "Start your day with intention by setting goals and positive affirmations.", icon: <Wind />, theme: "yellow" },
-    { name: "The Social Web", desc: "Reflect on your interactions, social energy, and boundary setting in friendships.", icon: <MessageSquare />, theme: "lavender" },
-    { name: "Body Scan", desc: "Connect with your physical self by observing tension and sensations.", icon: <Activity />, theme: "peach" },
-    { name: "The Clearing", desc: "No rules, no structure—just a free-flowing space for your mental unloading.", icon: <Trash2 />, theme: "minimal" },
+    {
+        name: "The Daily Pulse",
+        desc: "A quick check-in for your mood, triggers, and highlights of the day.",
+        icon: <Activity />,
+        theme: "blue",
+        modalIntro: "Ready to decode your day?",
+        btnColor: "bg-blue-600 hover:bg-blue-700",
+        analysisTitle: "Daily Mood Scan",
+        analysisBtn: "Analyze My Day",
+        analysisInstruction: "Show us how your day went—smile, frown, or just be you.",
+        botBg: "bg-blue-50/50",
+        botAccent: "text-blue-600",
+        botBubble: "bg-blue-100 border-blue-200",
+        botGreet: "How has the rhythm of your day been so far?",
+        moodOptions: ['Energized', 'Productive', 'Neutral', 'Tired', 'Low Energy']
+    },
+    {
+        name: "Anxiety Anchor",
+        desc: "Designed to help you identify stressors and use grounding techniques to find calm.",
+        icon: <Wind />,
+        theme: "teal",
+        modalIntro: "Let's find your center.",
+        btnColor: "bg-teal-600 hover:bg-teal-700",
+        analysisTitle: "Tension & Calm Scanner",
+        analysisBtn: "Check My Calm Levels",
+        analysisInstruction: "Take a deep breath. We'll look for signs of tension to help you release it.",
+        botBg: "bg-teal-50/50",
+        botAccent: "text-teal-600",
+        botBubble: "bg-teal-100 border-teal-200",
+        botGreet: "I'm here with you. How is your breath feeling right now?",
+        moodOptions: ['Overwhelmed', 'Restless', 'Tense', 'Grounding', 'Peaceful']
+    },
+    {
+        name: "Gratitude Horizon",
+        desc: "Focus on the positive by listing three things you are thankful for today.",
+        icon: <Heart />,
+        theme: "gold",
+        modalIntro: "Shift your perspective to abundance.",
+        btnColor: "bg-amber-500 hover:bg-amber-600",
+        analysisTitle: "Joy & Appreciation Scan",
+        analysisBtn: "Capture My Gratitude",
+        analysisInstruction: "Think of something that made you smile today. Let's capture that warmth.",
+        botBg: "bg-amber-50/50",
+        botAccent: "text-amber-600",
+        botBubble: "bg-amber-100 border-amber-200",
+        botGreet: "What beautiful moment can we celebrate today?",
+        moodOptions: ['Thankful', 'Inspired', 'Loved', 'Content', 'Blessed']
+    },
+    {
+        name: "The Academic Edge",
+        desc: "Manage study pressure, track focus levels, and celebrate learning wins.",
+        icon: <MessageSquare />,
+        theme: "indigo",
+        modalIntro: "Sharpen your focus and crush your goals.",
+        btnColor: "bg-indigo-600 hover:bg-indigo-700",
+        analysisTitle: "Focus & Burnout Detector",
+        analysisBtn: "Analyze Study Focus",
+        analysisInstruction: "Are you locked in or burnt out? Let's check your energy levels.",
+        botBg: "bg-indigo-50/50",
+        botAccent: "text-indigo-600",
+        botBubble: "bg-indigo-100 border-indigo-200",
+        botGreet: "Ready for a deep work session? How's your mental clarity?",
+        moodOptions: ['Focused', 'Determined', 'Burnt out', 'Procrastinating', 'Confused']
+    },
+    {
+        name: "Nightfall Peace",
+        desc: "Soft reflections to clear your mind and prepare for a restful, deep sleep.",
+        icon: <Activity />,
+        theme: "slate",
+        modalIntro: "Unwind and let go of the day.",
+        btnColor: "bg-slate-600 hover:bg-slate-700",
+        analysisTitle: "Sleep Readiness Scan",
+        analysisBtn: "Check Sleep Vibes",
+        analysisInstruction: "Relax your shoulders. Let's see if you're ready to drift off.",
+        botBg: "bg-slate-100/50",
+        botAccent: "text-slate-600",
+        botBubble: "bg-slate-200 border-slate-300",
+        botGreet: "The world is quiet now. What's lingering on your mind?",
+        moodOptions: ['Sleepy', 'Reflective', 'Quiet', 'Heavy', 'Restful']
+    },
+    {
+        name: "Inner Compass",
+        desc: "Deep dive into your personal values, growth, and what truly matters to you.",
+        icon: <LineChart />,
+        theme: "sage",
+        modalIntro: "Align with your true self.",
+        btnColor: "bg-emerald-600 hover:bg-emerald-700",
+        analysisTitle: "Core Values Alignment",
+        analysisBtn: "Read My Reflection",
+        analysisInstruction: "Look inward. We'll analyze the depth of your current emotion.",
+        botBg: "bg-emerald-50/50",
+        botAccent: "text-emerald-600",
+        botBubble: "bg-emerald-100 border-emerald-200",
+        botGreet: "Let's explore your internal landscape. What are you sensing?",
+        moodOptions: ['Purposeful', 'Lost', 'Growing', 'Skeptical', 'Authentic']
+    },
+    {
+        name: "Morning Spark",
+        desc: "Start your day with intention by setting goals and positive affirmations.",
+        icon: <Wind />,
+        theme: "yellow",
+        modalIntro: "Ignite your potential for today.",
+        btnColor: "bg-yellow-500 hover:bg-yellow-600",
+        analysisTitle: "Morning Energy Check",
+        analysisBtn: "Ignite My Day",
+        analysisInstruction: "Show us your morning face! Are you ready to conquer the day?",
+        botBg: "bg-yellow-50/50",
+        botAccent: "text-yellow-600",
+        botBubble: "bg-yellow-100 border-yellow-200",
+        botGreet: "A new day begins. What intention are you bringing to it?",
+        moodOptions: ['Ambitious', 'Hopeful', 'Fresh', 'Still Waking Up', 'Focused']
+    },
+    {
+        name: "The Social Web",
+        desc: "Reflect on your interactions, social energy, and boundary setting in friendships.",
+        icon: <MessageSquare />,
+        theme: "lavender",
+        modalIntro: "Navigate your connections with clarity.",
+        btnColor: "bg-purple-500 hover:bg-purple-600",
+        analysisTitle: "Social Battery Scan",
+        analysisBtn: "Check Social Energy",
+        analysisInstruction: "Feeling drained or energized by others? Let's read your social cues.",
+        botBg: "bg-purple-50/50",
+        botAccent: "text-purple-600",
+        botBubble: "bg-purple-100 border-purple-200",
+        botGreet: "Reflecting on your interactions—how is your social battery?",
+        moodOptions: ['Socially Charged', 'Drained', 'Connected', 'Misunderstood', 'Heard']
+    },
+    {
+        name: "The Clearing",
+        desc: "No rules, no structure—just a free-flowing space for your mental unloading.",
+        icon: <Trash2 />,
+        theme: "minimal",
+        modalIntro: "Speak your mind, freely.",
+        btnColor: "bg-slate-800 hover:bg-slate-900",
+        analysisTitle: "Raw Emotion Scanner",
+        analysisBtn: "Unload My Mind",
+        analysisInstruction: "No filters. Just show us exactly how you feel right now.",
+        botBg: "bg-slate-100",
+        botAccent: "text-slate-900",
+        botBubble: "bg-white border-slate-200",
+        botGreet: "No filters here. What needs to be released?",
+        moodOptions: ['Venting', 'Raw', 'Intense', 'Relieved', 'Heavy-hearted']
+    },
 ];
 
 const LandingPage = ({ onEnter }) => (
@@ -219,7 +353,7 @@ const BeachBackground = () => (
     </div>
 );
 
-const WebcamAnalyzer = ({ onMoodDetected }) => {
+const WebcamAnalyzer = ({ onMoodDetected, template }) => {
     const webcamRef = React.useRef(null);
     const [analyzing, setAnalyzing] = useState(false);
     const [lastMood, setLastMood] = useState(null);
@@ -283,18 +417,57 @@ const WebcamAnalyzer = ({ onMoodDetected }) => {
     };
 
     return (
-        <div className="glass-card p-6 bg-white/40 border-white/60 space-y-4">
-            <div className="flex items-center justify-between">
-                <h4 className="text-xs font-black text-aura-darkBlue flex items-center gap-2">
-                    <Camera size={20} /> Visual Mood Analysis
+        <div className={`glass-card p-6 bg-white/40 border-4 space-y-4 relative overflow-hidden transition-all ${template?.theme === 'blue' ? 'border-blue-200' :
+            template?.theme === 'teal' ? 'border-teal-200' :
+                template?.theme === 'gold' ? 'border-amber-200' :
+                    template?.theme === 'indigo' ? 'border-indigo-200' :
+                        template?.theme === 'slate' ? 'border-slate-200' :
+                            template?.theme === 'sage' ? 'border-emerald-200' :
+                                template?.theme === 'yellow' ? 'border-yellow-200' :
+                                    template?.theme === 'lavender' ? 'border-purple-200' :
+                                        template?.theme === 'peach' ? 'border-orange-200' : 'border-white/60'
+            }`}>
+            {/* Dynamic Ambient Glow */}
+            <div className={`absolute -right-10 -top-10 w-32 h-32 blur-[60px] opacity-40 rounded-full pointer-events-none ${template?.theme === 'blue' ? 'bg-blue-400' :
+                template?.theme === 'teal' ? 'bg-teal-400' :
+                    template?.theme === 'gold' ? 'bg-amber-400' :
+                        template?.theme === 'indigo' ? 'bg-indigo-400' :
+                            template?.theme === 'slate' ? 'bg-slate-400' :
+                                template?.theme === 'sage' ? 'bg-emerald-400' :
+                                    template?.theme === 'yellow' ? 'bg-yellow-400' :
+                                        template?.theme === 'lavender' ? 'bg-purple-400' :
+                                            template?.theme === 'peach' ? 'bg-orange-400' : 'bg-transparent'
+                }`} />
+
+            <div className="flex items-center justify-between relative z-10">
+                <h4 className={`text-xs font-black flex items-center gap-2 ${template?.theme === 'blue' ? 'text-blue-800' :
+                    template?.theme === 'teal' ? 'text-teal-800' :
+                        template?.theme === 'gold' ? 'text-amber-800' :
+                            template?.theme === 'indigo' ? 'text-indigo-800' :
+                                template?.theme === 'slate' ? 'text-slate-800' :
+                                    template?.theme === 'sage' ? 'text-emerald-800' :
+                                        template?.theme === 'yellow' ? 'text-yellow-800' :
+                                            template?.theme === 'lavender' ? 'text-purple-800' :
+                                                template?.theme === 'peach' ? 'text-orange-800' : 'text-aura-darkBlue'
+                    }`}>
+                    <Camera size={20} /> {template?.analysisTitle || "Visual Mood Analysis"}
                 </h4>
                 {lastMood && (
                     <div className="flex gap-2">
-                        <span className="px-3 py-1 bg-aura-blue text-aura-darkBlue rounded-full text-[9px] font-bold uppercase tracking-widest">
+                        <span className={`px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest ${template?.theme === 'blue' ? 'bg-blue-100 text-blue-700' :
+                            template?.theme === 'teal' ? 'bg-teal-100 text-teal-700' :
+                                template?.theme === 'gold' ? 'bg-amber-100 text-amber-700' :
+                                    template?.theme === 'indigo' ? 'bg-indigo-100 text-indigo-700' :
+                                        template?.theme === 'slate' ? 'bg-slate-100 text-slate-700' :
+                                            template?.theme === 'sage' ? 'bg-emerald-100 text-emerald-700' :
+                                                template?.theme === 'yellow' ? 'bg-yellow-100 text-yellow-700' :
+                                                    template?.theme === 'lavender' ? 'bg-purple-100 text-purple-700' :
+                                                        template?.theme === 'peach' ? 'bg-orange-100 text-orange-700' : 'bg-aura-blue text-aura-darkBlue'
+                            }`}>
                             Visual: {lastMood}
                         </span>
                         {audioMood && (
-                            <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-[9px] font-bold uppercase tracking-widest">
+                            <span className="px-3 py-1 bg-white/50 text-slate-600 rounded-full text-[9px] font-bold uppercase tracking-widest border border-slate-200">
                                 Vocal: {audioMood}
                             </span>
                         )}
@@ -302,7 +475,7 @@ const WebcamAnalyzer = ({ onMoodDetected }) => {
                 )}
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
                 <div className="relative rounded-2xl overflow-hidden aspect-video bg-slate-200 border-4 border-white/50 shadow-inner">
                     <Webcam
                         audio={false}
@@ -327,8 +500,17 @@ const WebcamAnalyzer = ({ onMoodDetected }) => {
                                 animate={{ opacity: 1, x: 0 }}
                                 className="space-y-4"
                             >
-                                <div className="p-4 bg-white/80 rounded-2xl border-l-4 border-aura-darkBlue shadow-sm">
-                                    <p className="text-xs font-black text-aura-darkBlue italic leading-tight mb-2">
+                                <div className={`p-4 bg-white/80 rounded-2xl border-l-4 shadow-sm ${template?.theme === 'blue' ? 'border-l-blue-500' :
+                                    template?.theme === 'teal' ? 'border-l-teal-500' :
+                                        template?.theme === 'gold' ? 'border-l-amber-500' :
+                                            template?.theme === 'indigo' ? 'border-l-indigo-500' :
+                                                template?.theme === 'slate' ? 'border-l-slate-500' :
+                                                    template?.theme === 'sage' ? 'border-l-emerald-500' :
+                                                        template?.theme === 'yellow' ? 'border-l-yellow-500' :
+                                                            template?.theme === 'lavender' ? 'border-l-purple-500' :
+                                                                template?.theme === 'peach' ? 'border-l-orange-500' : 'border-l-aura-darkBlue'
+                                    }`}>
+                                    <p className="text-xs font-black text-slate-800 italic leading-tight mb-2">
                                         {lastQuote}
                                     </p>
                                     <p className="text-[10px] font-medium text-slate-600 leading-relaxed">
@@ -339,7 +521,7 @@ const WebcamAnalyzer = ({ onMoodDetected }) => {
                         ) : (
                             <div className="p-8 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center text-center">
                                 <Activity className="text-slate-300 mb-2" size={32} />
-                                <p className="text-[10px] font-bold text-slate-400">Scan your expression to unlock a personalizado insight.</p>
+                                <p className="text-[10px] font-bold text-slate-400">{template?.analysisInstruction || "Scan your expression to unlock a personalized insight."}</p>
                             </div>
                         )}
                     </AnimatePresence>
@@ -347,9 +529,10 @@ const WebcamAnalyzer = ({ onMoodDetected }) => {
                     <button
                         onClick={captureAndAnalyze}
                         disabled={analyzing}
-                        className="w-full py-4 bg-aura-darkBlue text-white rounded-2xl font-black text-xs shadow-xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+                        className={`w-full py-4 text-white rounded-2xl font-black text-xs shadow-xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-50 ${template?.btnColor || 'bg-aura-darkBlue'
+                            }`}
                     >
-                        {analyzing ? "Analyzing Expression..." : "Scan My Expression"}
+                        {analyzing ? "Analyzing Expression..." : (template?.analysisBtn || "Scan My Expression")}
                         {!analyzing && <Activity size={20} />}
                     </button>
                 </div>
@@ -453,6 +636,47 @@ export default function App() {
     const [timeRange, setTimeRange] = useState('week');
     const [formData, setFormData] = useState(initialForm);
     const [botMessage, setBotMessage] = useState(null);
+    const [audioPlayer, setAudioPlayer] = useState(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [showTemplateModal, setShowTemplateModal] = useState(false);
+    const [selectedTemplate, setSelectedTemplate] = useState(null);
+
+    // Context-aware music mapping
+    const MUSIC_TRACKS = {
+        "Happy": "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=uplifting-future-bass-26336.mp3",
+        "Sad": "https://cdn.pixabay.com/download/audio/2022/03/24/audio_34b6845239.mp3?filename=sad-piano-22026.mp3",
+        "Anxious": "https://cdn.pixabay.com/download/audio/2022/10/25/audio_121db91929.mp3?filename=meditative-rain-11961.mp3",
+        "Stressed": "https://cdn.pixabay.com/download/audio/2022/08/02/audio_884fe92c21.mp3?filename=lofi-study-112778.mp3",
+        "Focus": "https://cdn.pixabay.com/download/audio/2022/05/17/audio_32c9438096.mp3?filename=focus-soft-corporate-11075.mp3",
+        "Calm": "https://cdn.pixabay.com/download/audio/2022/11/22/audio_febc508520.mp3?filename=calm-acoustic-guitar-12497.mp3",
+        "default": "https://cdn.pixabay.com/download/audio/2022/08/02/audio_884fe92c21.mp3?filename=lofi-study-112778.mp3"
+    };
+
+    const toggleMusic = () => {
+        if (isPlaying && audioPlayer) {
+            audioPlayer.pause();
+            setIsPlaying(false);
+        } else {
+            const moodKey = formData.overall_mood || "default";
+            // Simple keyword matching for existing tracks if precise mood isn't found
+            let streamUrl = MUSIC_TRACKS[moodKey] || MUSIC_TRACKS["default"];
+
+            // Override based on specific text in persistentResources if possible (advanced)
+            if (persistentResources.music.toLowerCase().includes("rain")) streamUrl = MUSIC_TRACKS["Anxious"];
+            if (persistentResources.music.toLowerCase().includes("piano")) streamUrl = MUSIC_TRACKS["Sad"];
+
+            if (audioPlayer) {
+                audioPlayer.src = streamUrl;
+                audioPlayer.play();
+            } else {
+                const newAudio = new Audio(streamUrl);
+                newAudio.loop = true;
+                newAudio.play();
+                setAudioPlayer(newAudio);
+            }
+            setIsPlaying(true);
+        }
+    };
 
     useEffect(() => {
         if (stage === 'dashboard') {
@@ -501,7 +725,19 @@ export default function App() {
                 user_phone: userPhone
             };
             const res = await axios.post(`${API_BASE}/journal/entries`, payload);
-            setBotMessage(res.data);
+
+            // Parse JSON strings from backend
+            const responseData = res.data;
+            try {
+                if (typeof responseData.counselor_tips === 'string') {
+                    responseData.counselor_tips = JSON.parse(responseData.counselor_tips);
+                }
+            } catch (e) {
+                console.error("Failed to parse tips", e);
+                responseData.counselor_tips = [];
+            }
+
+            setBotMessage(responseData);
             if (res.data.is_critical) {
                 setShowSafetyAlert(true);
             }
@@ -620,8 +856,8 @@ export default function App() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.05 }}
                                 onClick={() => {
-                                    setFormData({ ...formData, template_name: t.name });
-                                    setStage('dashboard');
+                                    setSelectedTemplate(t);
+                                    setShowTemplateModal(true);
                                 }}
                                 className="glass-card group p-8 cursor-pointer hover:shadow-2xl hover:scale-105 transition-all border-2 border-white/50 backdrop-blur-xl relative overflow-hidden"
                             >
@@ -646,6 +882,73 @@ export default function App() {
                             </motion.div>
                         ))}
                     </div>
+                    {showTemplateModal && selectedTemplate && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                                animate={{ scale: 1, opacity: 1, y: 0 }}
+                                className={`rounded-[40px] p-10 max-w-sm w-full shadow-2xl space-y-8 text-center border-4 border-white relative overflow-hidden bg-gradient-to-br ${selectedTemplate.theme === 'blue' ? 'from-blue-50 to-white' :
+                                    selectedTemplate.theme === 'teal' ? 'from-teal-50 to-white' :
+                                        selectedTemplate.theme === 'gold' ? 'from-amber-50 to-white' :
+                                            selectedTemplate.theme === 'indigo' ? 'from-indigo-50 to-white' :
+                                                selectedTemplate.theme === 'slate' ? 'from-slate-100 to-white' :
+                                                    selectedTemplate.theme === 'sage' ? 'from-emerald-50 to-white' :
+                                                        selectedTemplate.theme === 'yellow' ? 'from-yellow-50 to-white' :
+                                                            selectedTemplate.theme === 'lavender' ? 'from-purple-50 to-white' :
+                                                                selectedTemplate.theme === 'peach' ? 'from-orange-50 to-white' : 'from-slate-100 to-white'
+                                    }`}
+                            >
+                                <div className={`absolute top-0 left-0 w-full h-3 ${selectedTemplate.theme === 'blue' ? 'bg-blue-500' :
+                                    selectedTemplate.theme === 'teal' ? 'bg-teal-500' :
+                                        selectedTemplate.theme === 'gold' ? 'bg-amber-500' :
+                                            selectedTemplate.theme === 'indigo' ? 'bg-indigo-500' :
+                                                selectedTemplate.theme === 'slate' ? 'bg-slate-500' :
+                                                    selectedTemplate.theme === 'sage' ? 'bg-emerald-500' :
+                                                        selectedTemplate.theme === 'yellow' ? 'bg-yellow-500' :
+                                                            selectedTemplate.theme === 'lavender' ? 'bg-purple-500' :
+                                                                selectedTemplate.theme === 'peach' ? 'bg-orange-500' : 'bg-slate-800'
+                                    }`} />
+
+                                <div className="space-y-4">
+                                    <div className={`p-5 rounded-3xl inline-block shadow-lg ring-4 ring-white ${selectedTemplate.theme === 'minimal' ? 'bg-slate-800 text-white' : 'bg-white text-slate-800'}`}>
+                                        {React.cloneElement(selectedTemplate.icon, { size: 48 })}
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl font-black text-slate-800 tracking-tight">{selectedTemplate.name}</h3>
+                                        <p className={`font-bold mt-2 text-sm italic ${selectedTemplate.theme === 'blue' ? 'text-blue-600' :
+                                            selectedTemplate.theme === 'teal' ? 'text-teal-600' :
+                                                selectedTemplate.theme === 'gold' ? 'text-amber-600' :
+                                                    selectedTemplate.theme === 'indigo' ? 'text-indigo-600' :
+                                                        selectedTemplate.theme === 'sage' ? 'text-emerald-600' :
+                                                            selectedTemplate.theme === 'lavender' ? 'text-purple-600' : 'text-slate-500'
+                                            }`}>{selectedTemplate.modalIntro}</p>
+                                    </div>
+                                </div>
+
+                                <p className="text-slate-500 font-medium text-xs leading-relaxed px-4">{selectedTemplate.desc}</p>
+
+                                <div className="space-y-3 pt-4">
+                                    <button
+                                        onClick={() => {
+                                            setFormData({ ...formData, template_name: selectedTemplate.name });
+                                            setStage('dashboard');
+                                            setActiveTab('dashboard');
+                                            setShowTemplateModal(false);
+                                        }}
+                                        className={`w-full py-4 text-white rounded-2xl font-black shadow-xl transition-all flex items-center justify-center gap-3 transform hover:-translate-y-1 active:translate-y-0 ${selectedTemplate.btnColor || "bg-slate-800 hover:bg-slate-900"}`}
+                                    >
+                                        <MessageSquare size={20} /> Chat with AI
+                                    </button>
+                                    <button
+                                        onClick={() => setShowTemplateModal(false)}
+                                        className="w-full py-4 bg-white/50 text-slate-400 rounded-2xl font-bold hover:bg-white hover:text-rose-500 transition-all text-xs uppercase tracking-widest"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </div>
+                    )}
                 </div>
             </div>
         );
@@ -714,80 +1017,91 @@ export default function App() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <WebcamAnalyzer onMoodDetected={(mood) => setFormData({ ...formData, overall_mood: mood })} />
+                                        <WebcamAnalyzer
+                                            onMoodDetected={(mood) => setFormData({ ...formData, overall_mood: mood })}
+                                            template={currentTemplate}
+                                        />
                                     </header>
 
                                     {botMessage ? (
                                         <motion.section initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="space-y-8">
-                                            <div className="glass-card p-10 bg-white space-y-6">
-                                                <div className="flex gap-4 items-center mb-4">
-                                                    <div className="p-3 bg-green-100 rounded-full text-green-600">
+                                            <div className={`glass-card p-10 space-y-6 journal-paper paper-texture ${currentTemplate.botBg || 'bg-white'}`}>
+                                                <div className="flex gap-4 items-center mb-4 relative z-10">
+                                                    <div className={`p-3 rounded-full shadow-md ${currentTemplate.botBubble || 'bg-green-100 text-green-600'}`}>
                                                         <Activity size={32} />
                                                     </div>
                                                     <div>
-                                                        <h4 className="text-base font-black text-aura-darkBlue">AI Bot: {botMessage.emotion}</h4>
-                                                        <p className="text-[10px] font-bold text-slate-400">"{botMessage.quote}"</p>
+                                                        <h4 className={`text-base font-black ${currentTemplate.botAccent || 'text-aura-darkBlue'}`}>AI Bot: {botMessage.emotion}</h4>
+                                                        <p className="text-[10px] font-black tracking-widest text-slate-400 uppercase">Sanctuary: {currentTemplate.name}</p>
                                                     </div>
                                                 </div>
-                                                <div className="space-y-4">
+                                                <div className="space-y-4 relative z-10 pl-16">
                                                     {(botMessage.suggestion || "").split('\n').filter(p => p.trim()).map((paragraph, idx) => (
-                                                        <p key={idx} className="text-sm font-medium text-slate-700 leading-relaxed italic">
-                                                            "{paragraph.trim()}"
+                                                        <p key={idx} className="text-xl font-medium text-slate-700 leading-relaxed" style={{ fontFamily: '"Indie Flower", cursive' }}>
+                                                            {paragraph.trim()}
                                                         </p>
                                                     ))}
                                                 </div>
 
-                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
-                                                    <div className="p-6 bg-blue-50 rounded-3xl space-y-3 shadow-sm border border-blue-100">
-                                                        <Wind className="text-blue-500" />
+                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 relative z-10 pl-16">
+                                                    <div className={`p-6 rounded-3xl space-y-3 shadow-sm border ${currentTemplate.botBubble || 'bg-blue-50 border-blue-100'}`}>
+                                                        <Wind className={currentTemplate.botAccent || 'text-blue-500'} />
                                                         <h5 className="font-black text-aura-darkBlue">Breathing Exercise</h5>
-                                                        <p className="text-[10px] font-medium text-blue-800 leading-relaxed">{botMessage.breathing_exercise}</p>
+                                                        <p className={`text-[10px] font-medium leading-relaxed ${currentTemplate.botAccent || 'text-blue-800'}`}>{botMessage.breathing_exercise}</p>
                                                     </div>
-                                                    <div className="p-6 bg-purple-50 rounded-3xl space-y-3 shadow-sm border border-purple-100">
-                                                        <Music className="text-purple-500" />
+                                                    <div className={`p-6 rounded-3xl space-y-3 shadow-sm border ${currentTemplate.botBubble || 'bg-purple-50 border-purple-100'}`}>
+                                                        <Music className={currentTemplate.botAccent || 'text-purple-500'} />
                                                         <h5 className="font-black text-aura-darkBlue">Focus Music</h5>
-                                                        <p className="text-[10px] font-medium text-purple-800 leading-relaxed">{botMessage.focus_music}</p>
+                                                        <p className={`text-[10px] font-medium leading-relaxed ${currentTemplate.botAccent || 'text-purple-800'}`}>{botMessage.focus_music}</p>
                                                     </div>
-                                                    <div className="p-6 bg-pink-50 rounded-3xl space-y-3 shadow-sm border border-pink-100">
-                                                        <HelpCircle className="text-pink-500" />
+                                                    <div className={`p-6 rounded-3xl space-y-3 shadow-sm border ${currentTemplate.botBubble || 'bg-pink-50 border-pink-100'}`}>
+                                                        <HelpCircle className={currentTemplate.botAccent || 'text-pink-500'} />
                                                         <h5 className="font-black text-aura-darkBlue">Support Info</h5>
-                                                        <p className="text-[10px] font-medium text-pink-800 leading-relaxed">{botMessage.counselor_info}</p>
+                                                        <p className={`text-[10px] font-medium leading-relaxed ${currentTemplate.botAccent || 'text-pink-800'}`}>{botMessage.counselor_info}</p>
                                                     </div>
                                                 </div>
 
                                                 {botMessage.counselor_tips && botMessage.counselor_tips.length > 0 && (
-                                                    <div className="pt-6 space-y-4">
+                                                    <div className="pt-6 space-y-4 relative z-10 pl-16">
                                                         <h5 className="text-xs font-black text-aura-darkBlue flex items-center gap-2">
                                                             <Activity className="text-aura-darkBlue" size={20} /> counselor's Daily Tips
                                                         </h5>
                                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                                             {(botMessage.counselor_tips || []).map((tip, i) => (
-                                                                <div key={i} className="p-4 bg-white border-2 border-slate-50 rounded-2xl text-[10px] font-bold text-slate-600 shadow-sm italic ring-1 ring-blue-50">
+                                                                <div key={i} className={`p-4 bg-white/80 border-2 rounded-2xl text-[12px] font-bold shadow-sm italic ring-1 ${currentTemplate.botBubble || 'border-slate-50 text-slate-600 ring-blue-50'}`} style={{ fontFamily: '"Indie Flower", cursive' }}>
                                                                     "{tip}"
                                                                 </div>
                                                             ))}
                                                         </div>
                                                     </div>
                                                 )}
-                                                <button
-                                                    onClick={() => setBotMessage(null)}
-                                                    className="w-full mt-6 py-4 bg-slate-100 rounded-2xl font-black text-slate-400 hover:bg-slate-200 transition-colors"
-                                                >
-                                                    Continue Journaling
-                                                </button>
+                                                <div className="pl-16 relative z-10">
+                                                    <button
+                                                        onClick={() => setBotMessage(null)}
+                                                        className="w-full mt-6 py-4 bg-slate-100 rounded-2xl font-black text-slate-400 hover:bg-slate-200 transition-colors"
+                                                    >
+                                                        Close My Journal
+                                                    </button>
+                                                </div>
                                             </div>
                                         </motion.section>
                                     ) : (
-                                        <section className="glass-card p-10 space-y-10">
-                                            {/* Simplified Form for 'Bot' interaction */}
-                                            <div className="space-y-6">
-                                                <label className="block text-sm font-bold text-slate-800">How are you feeling within the "{formData.template_name}" template? <span className="text-red-500">*</span></label>
+                                        <section className="glass-card p-10 space-y-10 journal-paper paper-texture bg-white">
+                                            <div className="space-y-6 relative z-10 pl-16">
+                                                <div className="flex gap-4 items-center">
+                                                    <div className={`p-3 rounded-full shadow-inner ${currentTemplate.botBubble || 'bg-aura-blue text-aura-darkBlue'}`}>
+                                                        <Activity size={24} />
+                                                    </div>
+                                                    <label className={`block text-xl font-black tracking-tight ${currentTemplate.botAccent || 'text-slate-800'}`}>
+                                                        {currentTemplate.botGreet || `How are you feeling within the "${formData.template_name}" sanctuary?`}
+                                                    </label>
+                                                </div>
                                                 <div className="flex flex-wrap gap-4">
-                                                    {['Happy', 'Calm', 'Anxious', 'Sad', 'Stressed', 'Focused'].map(mood => (
+                                                    {(currentTemplate.moodOptions || ['Happy', 'Calm', 'Anxious', 'Sad', 'Stressed', 'Focused']).map(mood => (
                                                         <button
                                                             key={mood}
                                                             onClick={() => setFormData({ ...formData, overall_mood: mood })}
-                                                            className={`px-8 py-3 rounded-full border-2 transition-all font-bold ${formData.overall_mood === mood ? 'bg-aura-darkBlue text-white border-aura-darkBlue shadow-lg' : 'bg-white text-slate-500 border-slate-100 hover:border-blue-200'}`}
+                                                            className={`px-8 py-3 rounded-full border-2 transition-all font-bold ${formData.overall_mood === mood ? `${currentTemplate.btnColor || 'bg-aura-darkBlue'} text-white border-transparent shadow-lg` : `bg-white/80 text-slate-500 border-slate-100 hover:border-blue-200 shadow-sm`}`}
                                                         >
                                                             {mood}
                                                         </button>
@@ -795,23 +1109,24 @@ export default function App() {
                                                 </div>
                                             </div>
 
-                                            <div className="space-y-3">
-                                                <label className="block text-sm font-bold text-slate-800">Tell the bot what's on your mind... <span className="text-red-500">*</span></label>
+                                            <div className="space-y-3 relative z-10 pl-16">
+                                                <label className="block text-sm font-black text-slate-800 uppercase tracking-widest">Share with your Aura Bot</label>
                                                 <textarea
-                                                    className="w-full p-6 rounded-3xl border-2 border-aura-blue bg-white/50 outline-none focus:ring-4 focus:ring-blue-100 transition-all min-h-[200px] text-xs leading-relaxed shadow-inner"
-                                                    placeholder="Share your thoughts, triggers, or reflections..."
+                                                    className="w-full p-8 rounded-[32px] border-2 border-slate-100 bg-white/80 outline-none focus:ring-8 focus:ring-blue-50 transition-all min-h-[250px] text-lg leading-relaxed shadow-inner"
+                                                    style={{ fontFamily: '"Indie Flower", cursive' }}
+                                                    placeholder="Pour your thoughts onto the page..."
                                                     value={formData.triggers}
                                                     onChange={(e) => setFormData({ ...formData, triggers: e.target.value })}
                                                 />
                                             </div>
 
-                                            <div className="flex justify-end pt-8">
+                                            <div className="flex justify-end pt-8 relative z-10 pl-16">
                                                 <button
                                                     onClick={handleSaveEntry}
                                                     disabled={loading}
-                                                    className="bg-aura-darkBlue text-white px-16 py-5 rounded-full font-black text-sm hover:bg-blue-900 transition-all shadow-2xl disabled:opacity-50"
+                                                    className={`${currentTemplate.btnColor || 'bg-aura-darkBlue'} text-white px-20 py-6 rounded-full font-black text-lg hover:opacity-90 transition-all shadow-2xl disabled:opacity-50 ring-8 ring-white`}
                                                 >
-                                                    {loading ? 'Bot is Analyzing...' : 'Chat with Bot'}
+                                                    {loading ? 'Bot is Reading...' : 'Finalize Entry & Chat'}
                                                 </button>
                                             </div>
                                         </section>
@@ -909,11 +1224,16 @@ export default function App() {
                                             <div className="p-6 bg-white/50 rounded-[32px] border border-purple-100 shadow-inner space-y-4">
                                                 <p className="text-xs font-bold text-purple-900">{persistentResources.music}</p>
                                                 <div className="h-2 w-full bg-purple-100 rounded-full overflow-hidden">
-                                                    <motion.div animate={{ x: ['-100%', '100%'] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="h-full w-1/3 bg-purple-500 rounded-full" />
+                                                    {isPlaying && (
+                                                        <motion.div animate={{ x: ['-100%', '100%'] }} transition={{ duration: 3, repeat: Infinity, ease: "linear" }} className="h-full w-1/3 bg-purple-500 rounded-full" />
+                                                    )}
                                                 </div>
                                             </div>
-                                            <button className="w-full py-4 bg-purple-600 text-white rounded-2xl font-black shadow-lg hover:bg-purple-700 transition-all">
-                                                Open Focus Player
+                                            <button
+                                                onClick={toggleMusic}
+                                                className={`w-full py-4 rounded-2xl font-black shadow-lg transition-all ${isPlaying ? 'bg-purple-100 text-purple-600' : 'bg-purple-600 text-white hover:bg-purple-700'}`}
+                                            >
+                                                {isPlaying ? 'Pause Focus Player' : 'Play Focus Player'}
                                             </button>
                                         </div>
                                     </div>

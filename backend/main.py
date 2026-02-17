@@ -35,7 +35,6 @@ app = FastAPI(title="Aura API")
 @app.get("/api/health")
 def read_root():
     return {"status": "Aura API is running", "endpoints": ["/journal/entries", "/mood/stats", "/docs"]}
-
 from fastapi.middleware.cors import CORSMiddleware
 
 app.add_middleware(
@@ -45,19 +44,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Serve React App
-# Mount the static directory
-app.mount("/assets", StaticFiles(directory="../frontend/dist/assets"), name="assets")
-
-# Catch-all route to serve index.html for client-side routing
-@app.get("/{full_path:path}", response_class=HTMLResponse)
-async def serve_react_app(full_path: str):
-    if full_path.startswith("api/") or full_path.startswith("docs") or full_path.startswith("openapi.json"):
-        raise HTTPException(status_code=404, detail="Not Found")
-    
-    with open("../frontend/dist/index.html", "r") as f:
-        return f.read()
 
 # Dependency
 def get_db():
@@ -256,6 +242,22 @@ async def create_entry(entry: EntryCreate, db: Session = Depends(get_db)):
     combined_text = f"Template: {entry.template_name}. Triggers: {entry.triggers}. Strategies: {entry.strategies}. Lessons: {entry.lessons}"
     prompt = f"""
     You are Aura, an elite empathetic AI counselor. The user is {entry.user_age} years old and identifies as {entry.user_gender}.
+    
+    Current Template Context: "{entry.template_name}"
+    Specific Counseling Style for this Template:
+    {
+        {
+            "The Daily Pulse": "Focus on clarity and quick, actionable insights. Be concise, energetic, and help the user organize their scattered thoughts.",
+            "Anxiety Anchor": "Use extremely calming, grounding language. Focus on physical sensations (feet on floor, breath) and immediate relief. Be slow, gentle, and reassuring.",
+            "Gratitude Horizon": "Focus on appreciation and shifting perspective to abundance. Be warm, celebrating, and confirm the positive impact of their gratitude.",
+            "The Academic Edge": "Focus on productivity, focus, and overcoming procrastination or burnout. Be structured, motivating, and coach-like. Use terms like 'sprint', 'focus', 'goal'.",
+            "Nightfall Peace": "Focus on winding down, letting go of the day, and relaxation. Be whisper-quiet, soothing, and use sleep-inducing language.",
+            "Inner Compass": "Focus on values, long-term vision, and self-alignment. Be philosophical, deep, and reflective. Ask profound questions.",
+            "Morning Spark": "Focus on setting intentions, energy, and optimism. Be bright, awakening, and action-oriented for the day ahead.",
+            "The Social Web": "Focus on boundaries, communication, and empathy. Be relational and understanding. Help them navigate complex human dynanmics.",
+            "The Clearing": "Focus on unconditional acceptance and listening. Be open, spacious, and non-judgmental. Allow them to vent without immediately fixing it."
+        }.get(entry.template_name, "Provide empathetic, adaptive counseling based on the user's emotional state.")
+    }
     
     CRITICAL INSTRUCTION: Analyze the user's input sentence-by-sentence. Address specific triggers, emotions, and thoughts mentioned. 
     AVOID repetitive or generic comfort. Every response MUST be uniquely tailored to the specific details provided.
@@ -480,6 +482,20 @@ def clear_data(db: Session = Depends(get_db)):
     db.query(JournalEntry).delete()
     db.commit()
     return {"message": "All entries deleted."}
+
+# Serve React App AFTER API routes
+# Mount the static directory
+app.mount("/assets", StaticFiles(directory="../frontend/dist/assets"), name="assets")
+
+# Catch-all route to serve index.html for client-side routing
+@app.get("/{full_path:path}", response_class=HTMLResponse)
+async def serve_react_app(full_path: str):
+    # Don't intercept API calls or specific backend paths
+    if full_path.startswith("api/") or full_path.startswith("docs") or full_path.startswith("openapi.json") or full_path.startswith("journal/") or full_path.startswith("mood/") or full_path.startswith("analyze-multi-modal"):
+        raise HTTPException(status_code=404, detail="Not Found")
+    
+    with open("../frontend/dist/index.html", "r") as f:
+        return f.read()
 
 if __name__ == "__main__":
     import uvicorn
