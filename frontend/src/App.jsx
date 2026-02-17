@@ -465,6 +465,14 @@ export default function App() {
         try {
             const res = await axios.get(`${API_BASE}/journal/entries`);
             setEntries(res.data);
+            if (res.data && res.data.length > 0) {
+                const latest = res.data[0];
+                setPersistentResources({
+                    breathing: latest.breathing_exercise || "Calm your mind. Inhale for 4, hold for 4, exhale for 4.",
+                    music: latest.focus_music || "Lofi Beats - Chill Study Music",
+                    tip: latest.counselor_info || "Take a deep breath and stay present."
+                });
+            }
         } catch (e) {
             console.error(e);
         }
